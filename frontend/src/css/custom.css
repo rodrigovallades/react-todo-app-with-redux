@@ -2,3 +2,12 @@
   text-decoration: line-through;
   color: #CCC;
 }
+
+.tasks__task--actions {
+  width: 160px;
+  text-align: right;
+}
+
+.todo-form {
+  padding-bottom: 60px;
+}
