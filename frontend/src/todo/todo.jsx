@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+
 import PageHeader from '../template/page-header'
 import TodoForm from './todo-form'
 import TodoList from './todo-list'
+
+const API_URL = 'http://localhost:3003/api/todos'
 
 export default class Todo extends Component {
 
@@ -14,6 +18,10 @@ export default class Todo extends Component {
 
   handleAdd() {
     console.log(this)
+    const description = this.state.description
+
+    axios.post(API_URL, { description })
+      .then(res => console.log(`Added to the database: ${res}`))
   }
 
   handleChange(event) {
