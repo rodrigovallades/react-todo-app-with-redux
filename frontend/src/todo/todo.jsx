@@ -15,6 +15,8 @@ export default class Todo extends Component {
     this.handleAdd = this.handleAdd.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleRemove = this.handleRemove.bind(this)
+    this.handleMarkAsDone = this.handleMarkAsDone.bind(this)
+    this.handleMaskAsPending = this.handleMaskAsPending.bind(this)
 
     this.refresh()
   }
@@ -34,7 +36,17 @@ export default class Todo extends Component {
 
   handleRemove(todo) {
     axios.delete(`${API_URL}/${todo._id}`)
-      .then(resp => this.refresh())
+      .then(res => this.refresh())
+  }
+
+  handleMarkAsDone(todo) {
+    axios.put(`${API_URL}/${todo._id}`, { done: true })
+      .then(res => this.refresh())
+  }
+
+  handleMaskAsPending(todo) {
+    axios.put(`${API_URL}/${todo._id}`, { done: false })
+      .then(res => this.refresh())
   }
 
   handleChange(event) {
@@ -45,8 +57,15 @@ export default class Todo extends Component {
     return (
       <div>
         <PageHeader name='Tasks' subname='Register'></PageHeader>
-        <TodoForm handleAdd={this.handleAdd} handleChange={this.handleChange} description={this.state.description} />
-        <TodoList handleRemove={this.handleRemove} list={this.state.list} />
+        <TodoForm
+          description={this.state.description}
+          handleAdd={this.handleAdd}
+          handleChange={this.handleChange} />
+        <TodoList
+          list={this.state.list}
+          handleMarkAsDone={this.handleMarkAsDone}
+          handleMaskAsPending={this.handleMaskAsPending}
+          handleRemove={this.handleRemove} />
       </div>
     )
   }
