@@ -1,4 +1,4 @@
-.done {
+.tasks__task--done {
   text-decoration: line-through;
-  color: #777;
+  color: #CCC;
 }
