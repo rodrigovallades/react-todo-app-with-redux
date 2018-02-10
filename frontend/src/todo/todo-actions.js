@@ -15,10 +15,32 @@ export const search = () => {
   }
 }
 
+// pure action creator
+
+// export const add = (description) => {
+//   const request = axios.post(API_URL, { description })
+//   return {
+//     type: 'TODO_ADDED',
+//     payload: request
+//   }
+// }
+
+// action creator with 'multi' middleware
+
+// export const add = (description) => {
+//   const request = axios.post(API_URL, { description })
+//   return [{
+//     type: 'TODO_ADDED',
+//     payload: request
+//   }, search()]
+// }
+
+// action creator with 'multi' and 'thunk' middlewares
+
 export const add = (description) => {
-  const request = axios.post(API_URL, { description })
-  return {
-    type: 'TODO_ADDED',
-    payload: request
+  return dispatch => {
+    axios.post(API_URL, { description })
+      .then(res => dispatch({ type: 'TODO_ADDED', payload: res.data }))
+      .then(res => dispatch( search() ))
   }
 }
